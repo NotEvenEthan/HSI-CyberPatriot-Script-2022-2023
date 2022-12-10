@@ -10,15 +10,16 @@ color 0A
 	echo "2)Disable services"
 	echo "3)password policy"
 	echo "4)lockout policy"
-	echo "5)security options"
-	echo "6)auto update stuff"
-	echo "7)user properties"
+	echo "5)audit policies"
+	echo "6)security options"
+	echo "7)auto update stuff"
+	echo "8)user properties"
 	set /p response=Please choose an option: 
 		if "%response%" == "1" goto :firewall
 		if "%response%" == "2" goto :disableservices
 		if "%response%" == "3" goto :passwordpol
 		if "%response%" == "4" goto :lockoutpol
-    if "%response%" == "5" goto :auditpol
+    		if "%response%" == "5" goto :auditpol
 		if "%response%" == "6" goto :securityOptions
 		if "%response%" == "7" goto :autoUpdate
 		if "%response%" == "8" goto :userProp
@@ -115,6 +116,9 @@ color 0A
 
 :securityOptions
 	echo changing some security options
+	
+	rem Disable Guest
+	net user guest /active:no
 	
 	rem Idle Time Limit - 45 mins
 	reg ADD "HKLM\SYSTEM\CurrentControlSet\services\LanmanServer\Parameters" /v autodisconnect /t REG_DWORD /d 45 /f 
